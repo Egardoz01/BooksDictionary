@@ -27,15 +27,7 @@ class NotStartedBooksViewModel(
     }
 
     init {
-        var book = BookInfo()
-        book.author = "Tolkien"
-        book.name = "The Lord of The Ring"
-        uiScope.launch {
-            insert(book)
 
-        }
-
-        Log.i("init: ", "book added")
     }
 
     override fun onCleared() {
