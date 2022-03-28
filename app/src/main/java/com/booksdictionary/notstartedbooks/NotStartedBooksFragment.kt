@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.booksdictionary.R
+import com.booksdictionary.database.BookDatabase
+import com.booksdictionary.database.BookInfo
 import com.booksdictionary.databinding.NotStartedBooksFragmentBinding
 
 class NotStartedBooksFragment : Fragment() {
@@ -32,7 +34,11 @@ class NotStartedBooksFragment : Fragment() {
 
         var adapter = BooksAdapter()
         binding.booksList.adapter = adapter
-        viewModel = ViewModelProvider(this).get(NotStartedBooksViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val dao = BookDatabase.getInstance(application).getBookDatabaseDao()
+        val viewModelFactory = NotStartedBooksViewModelFactory(dao, application)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(NotStartedBooksViewModel::class.java)
 
         viewModel.books.observe(viewLifecycleOwner, Observer { books ->
             Log.i("observer: ", books.toString())
@@ -43,7 +49,7 @@ class NotStartedBooksFragment : Fragment() {
             }
         })
 
-        viewModel.books.value = listOf(BookInfo("aaa","bbb"))
+
 
         Log.i("viewModel.books: ", viewModel.books.value.toString())
         Log.i("adapter data: ", adapter.data.toString())

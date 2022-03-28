@@ -1,12 +1,10 @@
 package com.booksdictionary.notstartedbooks
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.booksdictionary.R
+import com.booksdictionary.database.BookInfo
 
-class BooksAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
+class BooksAdapter: RecyclerView.Adapter<BookItemViewHolder>() {
     var data = listOf<BookInfo>()
         set(value) {
             field = value
@@ -15,15 +13,13 @@ class BooksAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
 
     override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookItemViewHolder, position: Int) {
         val item = data[position]
-        holder.textView.text = item.Name.toString()
+        holder.bookName.text = item.name.toString()
+        holder.bookAuthor.text = item.author.toString()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater
-            .inflate(R.layout.book_item_view, parent, false) as TextView
-        return TextItemViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookItemViewHolder {
+        return BookItemViewHolder.from(parent)
     }
 }
