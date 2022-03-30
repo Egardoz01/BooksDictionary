@@ -26,10 +26,6 @@ class NotStartedBooksViewModel(
         }
     }
 
-    init {
-
-    }
-
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

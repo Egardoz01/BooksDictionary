@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.booksdictionary.R
 import com.booksdictionary.database.BookDatabase
 import com.booksdictionary.database.BookInfo
@@ -43,16 +44,19 @@ class NotStartedBooksFragment : Fragment() {
         viewModel.books.observe(viewLifecycleOwner, Observer { books ->
             Log.i("observer: ", books.toString())
             if (books != null) {
-
                 adapter.data = books
-                Log.i("adapter data: ", adapter.data.toString())
             }
         })
 
+        binding.addBookButton.setOnClickListener {
+            this.findNavController().navigate(R.id.action_editBook)
+        }
+        adapter.onEditBookClick = {
+            val action = NotStartedBooksFragmentDirections.actionEditBook()
+            action.bookInfo = it
+            this.findNavController().navigate(action)
+        }
 
-
-        Log.i("viewModel.books: ", viewModel.books.value.toString())
-        Log.i("adapter data: ", adapter.data.toString())
         return binding.root
     }
 

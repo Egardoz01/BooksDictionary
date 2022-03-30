@@ -18,6 +18,27 @@
         android:id="@+id/notStartedBooksFragment"
         android:name="com.booksdictionary.notstartedbooks.NotStartedBooksFragment"
         android:label="not_started_books_fragment"
-        tools:layout="@layout/not_started_books_fragment" />
+        tools:layout="@layout/not_started_books_fragment" >
+        <action
+            android:id="@+id/action_editBook"
+            app:destination="@id/bookDialog">
+            <argument
+                android:name="bookInfo"
+                app:argType="com.booksdictionary.database.BookInfo"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>>
+    </fragment>
+
+    <dialog
+        android:id="@+id/bookDialog"
+        android:name="com.booksdictionary.book_dialog.BookDialog"
+        android:label="BookDialog" >
+        <argument
+            android:name="bookInfo"
+            app:argType="com.booksdictionary.database.BookInfo"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
 
 </navigation>
