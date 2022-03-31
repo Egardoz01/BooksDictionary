@@ -13,12 +13,12 @@
 
     <TextView
         android:id="@+id/book_name"
-        android:layout_width="0dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="240dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="12dp"
         android:textColor="@color/design_default_color_on_primary"
-
+        android:textSize="18dp"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,13 +27,15 @@
     <TextView
         android:id="@+id/book_author"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="@color/design_default_color_on_primary"
         app:layout_constraintEnd_toEndOf="@+id/book_name"
         app:layout_constraintStart_toStartOf="@+id/book_name"
         app:layout_constraintTop_toBottomOf="@+id/book_name"
-        tools:text="Tolkien" />
+        tools:text="Tolkien"
+        android:textSize="12dp"
+        />
 
     <Button
 
