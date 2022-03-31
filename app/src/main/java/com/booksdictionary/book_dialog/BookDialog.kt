@@ -5,6 +5,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.booksdictionary.R
 import com.booksdictionary.database.BookDatabase
 import com.booksdictionary.database.BookInfo
+import com.booksdictionary.database.StatusEnum
 import com.booksdictionary.databinding.BookDialogFragmentBinding
 
 
@@ -45,6 +47,14 @@ class BookDialog : DialogFragment() {
             inflater, R.layout.book_dialog_fragment, container, false
         )
 
+        binding.spinnerStatus.setAdapter(
+            ArrayAdapter<String>(
+                this.requireContext(),
+                android.R.layout.simple_spinner_item,
+                StatusEnum.values().map { it.getLabel(this.requireContext()) }
+            )
+        )
+
 
         authors.add(binding.editAuthor)
 
@@ -52,14 +62,12 @@ class BookDialog : DialogFragment() {
             binding.okButton.text = resources.getString(R.string.add)
 
             binding.okButton.setOnClickListener {
-                var bookInfo = BookInfo()
-                bookInfo.name = binding.editName.text.toString()
-                bookInfo.author = binding.editAuthor.text.toString()
 
-                viewModel.addBook(bookInfo)
-
+                viewModel.addBook(getBookInfo())
                 dismiss()
             }
+
+            args.bookInfo?.let { binding.spinnerStatus.setSelection(0) }
 
         } else {
 
@@ -74,21 +82,20 @@ class BookDialog : DialogFragment() {
 
 
             binding.editName.setText(args.bookInfo!!.name ?: "")
+            binding.editGenre.setText(args.bookInfo!!.genre ?: "")
+            binding.editPagesTotal.setText(args.bookInfo!!.pagesTotal.toString() ?: "")
+            binding.editPagesRead.setText(args.bookInfo!!.pagesRead.toString() ?: "")
 
+            args.bookInfo?.let { binding.spinnerStatus.setSelection(it.status) }
             binding.okButton.text = resources.getString(R.string.edit)
 
             binding.okButton.setOnClickListener {
-                var bookInfo = BookInfo()
-                bookInfo.bookId = args.bookInfo!!.bookId
-                bookInfo.name = binding.editName.text.toString()
-                bookInfo.author = authors.map { it.text }.joinToString(separator = "; ")
-
-                viewModel.editBook(bookInfo)
-
+                var book = getBookInfo()
+                book.bookId = args.bookInfo!!.bookId
+                viewModel.editBook(book)
                 dismiss()
             }
         }
-
 
         binding.buttonAddAuthor.setOnClickListener {
             addAuthor("")
@@ -97,13 +104,34 @@ class BookDialog : DialogFragment() {
         return binding.root
     }
 
+    private fun getBookInfo(): BookInfo {
+        var bookInfo = BookInfo()
+
+        bookInfo.name = binding.editName.text.toString()
+        bookInfo.author = authors.map { it.text }.joinToString(separator = "; ")
+        bookInfo.genre = binding.editGenre.text.toString()
+
+        bookInfo.pagesTotal = binding.editPagesTotal.text.toString().toInt()
+        bookInfo.pagesRead = binding.editPagesRead.text.toString().toInt()
+        bookInfo.status = binding.spinnerStatus.selectedItemPosition
+
+        return bookInfo
+    }
+
+
     private fun addAuthor(author: String) {
         var rl = binding.layout
 
         var edit = EditText(activity)
         edit.id = 200 + authors.size
         edit.layoutParams =
-            ViewGroup.LayoutParams(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180f, resources.displayMetrics).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT);
+            ViewGroup.LayoutParams(
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    180f,
+                    resources.displayMetrics
+                ).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT
+            );
 
         rl.addView(edit)
         edit.setText(author)

@@ -20,9 +20,16 @@ class NotStartedBooksViewModel(
 
     var books = dao.getAll()
 
-    suspend fun insert(book: BookInfo) {
+
+    private suspend fun delete(book: BookInfo) {
         withContext(Dispatchers.IO) {
-            dao.insert(book)
+            dao.delete(book)
+        }
+    }
+
+    fun deleteBook(book: BookInfo) {
+        uiScope.launch {
+            delete(book)
         }
     }
 

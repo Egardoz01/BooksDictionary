@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/book_author"
-        android:layout_width="0dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="@color/design_default_color_on_primary"
@@ -48,6 +48,56 @@
         android:foreground="@mipmap/ic_edit_button_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="35dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/design_default_color_primary"
+        android:foreground="@mipmap/ic_delete_button_foreground"
+        app:layout_constraintStart_toStartOf="@+id/edit_button"
+        app:layout_constraintTop_toBottomOf="@+id/edit_button" />
+
+    <TextView
+        android:id="@+id/book_genre"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/design_default_color_on_primary"
+        android:text="Fantasy"
+        app:layout_constraintStart_toStartOf="@+id/book_author"
+        app:layout_constraintTop_toBottomOf="@+id/book_author" />
+
+    <TextView
+        android:id="@+id/book_status"
+        android:layout_width="239dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:text="In Progress"
+        android:textColor="@color/design_default_color_on_primary"
+        app:layout_constraintStart_toStartOf="@+id/book_genre"
+        app:layout_constraintTop_toBottomOf="@+id/book_genre" />
+
+    <TextView
+        android:id="@+id/book_pages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/design_default_color_on_primary"
+        android:text="read 10 out of 100"
+        app:layout_constraintStart_toStartOf="@+id/book_status"
+        app:layout_constraintTop_toBottomOf="@+id/book_status" />
+
+    <TextView
+        android:id="@+id/book_persetage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:text="10%"
+        android:textColor="@color/design_default_color_on_primary"
+        app:layout_constraintStart_toEndOf="@+id/book_pages"
+        app:layout_constraintTop_toTopOf="@+id/book_pages" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

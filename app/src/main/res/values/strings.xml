@@ -7,5 +7,11 @@
     <string name="genre">Genre</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
-
+    <string name="pagesTotal">Pages Total</string>
+    <string name="pagesRead">Pages Read</string>
+    <string name="status">Status</string>
+    <string name="inProgress">In Progress</string>
+    <string name="notStarted">Not Started</string>
+    <string name="finished">Finished</string>
+    <string name="pagesFormat">read %d out of  %d</string>
 </resources>

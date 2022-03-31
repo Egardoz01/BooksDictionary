@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [BookInfo::class], version = 1, exportSchema = false)
+@Database(entities = [BookInfo::class], version = 4, exportSchema = false)
 abstract class BookDatabase : RoomDatabase() {
     abstract fun getBookDatabaseDao(): BookDatabaseDao
 
@@ -20,7 +20,7 @@ abstract class BookDatabase : RoomDatabase() {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.applicationContext,
                         BookDatabase::class.java, "book_dictionary_db")
-                        .build()
+                        .fallbackToDestructiveMigration().build()
                     INSTANCE = instance
                 }
                 return instance

@@ -51,10 +51,17 @@ class NotStartedBooksFragment : Fragment() {
         binding.addBookButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_editBook)
         }
+
+        adapter.context = this.requireContext()
+
         adapter.onEditBookClick = {
             val action = NotStartedBooksFragmentDirections.actionEditBook()
             action.bookInfo = it
             this.findNavController().navigate(action)
+        }
+
+        adapter.onDeleteBookClick = {
+            viewModel.deleteBook(it)
         }
 
         return binding.root

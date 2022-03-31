@@ -19,7 +19,13 @@ class BookItemViewHolder(itemView: View) :
     // val qualityImage: ImageView = itemView.findViewById(R.id.quality_image)
     val bookName: TextView = itemView.findViewById(R.id.book_name)
     val bookAuthor: TextView = itemView.findViewById(R.id.book_author)
+    val bookGenre: TextView = itemView.findViewById(R.id.book_genre)
+    val bookPages: TextView = itemView.findViewById(R.id.book_pages)
+    val bookPersentage: TextView = itemView.findViewById(R.id.book_persetage)
+    val bookStatus: TextView = itemView.findViewById(R.id.book_status)
+
     val addButton: Button = itemView.findViewById(R.id.edit_button)
+    val deleteButton: Button = itemView.findViewById(R.id.delete_button)
 
     companion object {
         fun from(parent: ViewGroup,): BookItemViewHolder {

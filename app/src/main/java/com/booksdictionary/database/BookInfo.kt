@@ -22,10 +22,26 @@ class BookInfo() : Parcelable {
     @ColumnInfo(name = "author")
     var author: String = ""
 
+    @ColumnInfo(name = "genre")
+    var genre: String = ""
+
+    @ColumnInfo(name = "pages_total")
+    var pagesTotal: Int = 0
+
+    @ColumnInfo(name = "pages_read")
+    var pagesRead: Int = 0
+
+    @ColumnInfo(name = "status")
+    var status: Int = 0
+
     constructor(parcel: Parcel) : this() {
         bookId = parcel.readLong()
         name = parcel.readString().toString()
         author = parcel.readString().toString()
+        genre = parcel.readString().toString()
+        pagesTotal = parcel.readInt()
+        pagesRead = parcel.readInt()
+        status = parcel.readInt()
     }
 
     companion object : Parceler<BookInfo> {
@@ -34,6 +50,10 @@ class BookInfo() : Parcelable {
             parcel.writeLong(bookId)
             parcel.writeString(name)
             parcel.writeString(author)
+            parcel.writeString(genre)
+            parcel.writeInt(pagesTotal)
+            parcel.writeInt(pagesRead)
+            parcel.writeInt(status)
         }
 
         override fun create(parcel: Parcel): BookInfo {
