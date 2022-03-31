@@ -4,4 +4,6 @@
     <string name="not_started_books">Not Started Books</string>
     <string name="author">Author</string>
     <string name="name">Name</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
 </resources>
