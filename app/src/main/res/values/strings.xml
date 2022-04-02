@@ -15,4 +15,7 @@
     <string name="finished">Finished</string>
     <string name="pagesFormat">read %d out of  %d</string>
     <string name="booksDictionary">Books Dictionary</string>
+    <string name="enterAuthor">Enter Author</string>
+    <string name="cancel">Cancel</string>
+    <string name="selectStatus">Select Status</string>
 </resources>

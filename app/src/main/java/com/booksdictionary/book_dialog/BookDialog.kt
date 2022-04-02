@@ -50,12 +50,10 @@ class BookDialog : DialogFragment() {
             inflater, R.layout.book_dialog_fragment, container, false
         )
 
-        binding.spinnerStatus.setAdapter(
-            ArrayAdapter<String>(
-                this.requireContext(),
-                android.R.layout.simple_spinner_item,
-                StatusEnum.values().map { it.getLabel(this.requireContext()) }
-            )
+        binding.spinnerStatus.adapter = ArrayAdapter<String>(
+            this.requireContext(),
+            android.R.layout.simple_spinner_item,
+            StatusEnum.values().map { it.getLabel(this.requireContext()) }
         )
 
 
@@ -114,6 +112,10 @@ class BookDialog : DialogFragment() {
 
                     showMessage("Invalid Input")
                 }
+            }
+
+            binding.buttonCancel.setOnClickListener {
+                dismiss()
             }
         }
 
