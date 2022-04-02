@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.booksdictionary.MainActivity
 import com.booksdictionary.R
 import com.booksdictionary.database.BookDatabase
 import com.booksdictionary.database.BookInfo
@@ -27,6 +28,8 @@ class NotStartedBooksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.booksDictionary)
 
 
         val binding: NotStartedBooksFragmentBinding = DataBindingUtil.inflate(

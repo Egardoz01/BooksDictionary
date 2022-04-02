@@ -1,14 +1,14 @@
 package com.booksdictionary.menu
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.booksdictionary.MainActivity
 import com.booksdictionary.R
 import com.booksdictionary.databinding.FragmentMenuBinding
 
@@ -31,10 +31,14 @@ class MenuFragment : Fragment() {
 
 
         binding.btnNotStartedBooks.setOnClickListener {
-          this.findNavController().
-                navigate(R.id.action_menuFragment_to_notStartedBooksFragment)
+            this.findNavController().navigate(R.id.action_menuFragment_to_notStartedBooksFragment)
         }
 
+        binding.btnExit.setOnClickListener {
+            activity?.let { it1 -> finishAffinity(it1) }
+        }
+
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.booksDictionary)
 
         return binding.root
 

@@ -14,4 +14,5 @@
     <string name="notStarted">Not Started</string>
     <string name="finished">Finished</string>
     <string name="pagesFormat">read %d out of  %d</string>
+    <string name="booksDictionary">Books Dictionary</string>
 </resources>

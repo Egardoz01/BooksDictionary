@@ -1,5 +1,7 @@
 package com.booksdictionary.book_dialog
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -18,6 +20,7 @@ import com.booksdictionary.database.BookDatabase
 import com.booksdictionary.database.BookInfo
 import com.booksdictionary.database.StatusEnum
 import com.booksdictionary.databinding.BookDialogFragmentBinding
+import java.lang.Exception
 
 
 class BookDialog : DialogFragment() {
@@ -62,9 +65,17 @@ class BookDialog : DialogFragment() {
             binding.okButton.text = resources.getString(R.string.add)
 
             binding.okButton.setOnClickListener {
+                try {
+                    var bookInfo = getBookInfo()
+                    if (validateBookInfo(bookInfo)) {
+                        viewModel.addBook(bookInfo)
+                        dismiss()
+                    } else
+                        showMessage("Invalid Input")
+                } catch (ex: Exception) {
+                    showMessage("Invalid Input")
+                }
 
-                viewModel.addBook(getBookInfo())
-                dismiss()
             }
 
             args.bookInfo?.let { binding.spinnerStatus.setSelection(0) }
@@ -90,10 +101,19 @@ class BookDialog : DialogFragment() {
             binding.okButton.text = resources.getString(R.string.edit)
 
             binding.okButton.setOnClickListener {
-                var book = getBookInfo()
-                book.bookId = args.bookInfo!!.bookId
-                viewModel.editBook(book)
-                dismiss()
+                try {
+
+                    var book = getBookInfo()
+                    if (validateBookInfo(book)) {
+                        book.bookId = args.bookInfo!!.bookId
+                        viewModel.editBook(book)
+                        dismiss()
+                    } else
+                        showMessage("Invalid Input")
+                } catch (ex: Exception) {
+
+                    showMessage("Invalid Input")
+                }
             }
         }
 
@@ -116,6 +136,48 @@ class BookDialog : DialogFragment() {
         bookInfo.status = binding.spinnerStatus.selectedItemPosition
 
         return bookInfo
+    }
+
+
+    private fun showMessage(message: String) {
+
+        val builder = AlertDialog.Builder(this.requireContext())
+
+        with(builder)
+        {
+            setTitle("Invalid Input")
+            setMessage(message)
+            show()
+        }
+
+
+    }
+
+    private fun validateBookInfo(bookInfo: BookInfo): Boolean {
+        if (bookInfo.author.isEmpty())
+            return false
+
+        if (bookInfo.name.isEmpty())
+            return false
+
+
+
+        if (bookInfo.genre.isEmpty())
+            return false
+
+        if (bookInfo.status > 2 || bookInfo.status < 0)
+            return false
+
+        if (bookInfo.pagesRead < 0)
+            return false
+
+        if (bookInfo.pagesTotal < 0)
+            return false
+
+        if (bookInfo.pagesTotal < bookInfo.pagesRead)
+            return false
+
+        return true
     }
 
 
