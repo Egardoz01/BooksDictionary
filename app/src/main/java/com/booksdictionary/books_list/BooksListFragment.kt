@@ -1,9 +1,8 @@
-package com.booksdictionary.notstartedbooks
+package com.booksdictionary.books_list
 
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,42 +25,66 @@ class NotStartedBooksFragment : Fragment() {
         fun newInstance() = NotStartedBooksFragment()
     }
 
-    private lateinit var viewModel: NotStartedBooksViewModel
-
+    private lateinit var viewModel: BooksListViewModel
+    private lateinit var binding: NotStartedBooksFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.booksDictionary)
-
-
-        val binding: NotStartedBooksFragmentBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.not_started_books_fragment, container, false
         )
+        initializeViewModel()
+        initializeComponents()
+        initializeRecycleViewAdapter()
 
-        var adapter = BooksAdapter()
-        binding.booksList.adapter = adapter
+        return binding.root
+    }
+
+
+    private fun initializeComponents() {
+
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.booksDictionary)
+
+        binding.addBookButton.setOnClickListener {
+            this.findNavController().navigate(R.id.action_editBook)
+        }
+
+        binding.spinnerStatus.adapter = SpinnerAdapter(
+            this.requireContext(),
+            android.R.layout.simple_spinner_item,
+            StatusEnumSelect.values().map { it.getLabel(this.requireContext()) }
+        )
+
+        binding.spinnerStatus.setSelection(4)
+
+        binding.buttonFilter.setOnClickListener {
+            var filter = BooksListViewModel.FilterData()
+            filter.status = binding.spinnerStatus.selectedItemPosition
+            filter.author = binding.editAuthor.text.toString()
+
+            viewModel.filter.postValue(filter)
+        }
+    }
+
+    private fun initializeViewModel() {
         val application = requireNotNull(this.activity).application
         val dao = BookDatabase.getInstance(application).getBookDatabaseDao()
-        val viewModelFactory = NotStartedBooksViewModelFactory(dao, application)
+        val viewModelFactory = BooksListViewModelFactory(dao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(NotStartedBooksViewModel::class.java)
+            .get(BooksListViewModel::class.java)
+    }
+
+    private fun initializeRecycleViewAdapter() {
+        var adapter = BooksAdapter()
+        binding.booksList.adapter = adapter
 
         viewModel.books.observe(viewLifecycleOwner, Observer { books ->
             if (books != null) {
                 adapter.data = books
             }
         })
-
-        binding.addBookButton.setOnClickListener {
-            this.findNavController().navigate(R.id.action_editBook)
-        }
-
-        binding.buttonFilter.setOnClickListener {
-
-
-        }
 
         adapter.context = this.requireContext()
 
@@ -74,29 +97,6 @@ class NotStartedBooksFragment : Fragment() {
         adapter.onDeleteBookClick = {
             viewModel.deleteBook(it)
         }
-
-
-        binding.spinnerStatus.adapter = SpinnerAdapter(
-            this.requireContext(),
-            android.R.layout.simple_spinner_item,
-            StatusEnumSelect.values().map { it.getLabel(this.requireContext()) }
-        )
-
-        binding.spinnerStatus.setSelection(4)
-
-        binding.buttonFilter.setOnClickListener {
-            var filter = NotStartedBooksViewModel.FilterData()
-            filter.status = binding.spinnerStatus.selectedItemPosition
-            filter.author = binding.editAuthor.text.toString()
-
-            viewModel.filter.postValue(filter)
-        }
-
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
     }
 

@@ -15,7 +15,7 @@
             android:id="@+id/btnNotStartedBooks"
             android:layout_width="193dp"
             android:layout_height="wrap_content"
-            android:text="@string/not_started_books" />
+            android:text="@string/books_list" />
 
         <Button
             android:id="@+id/btnExit"

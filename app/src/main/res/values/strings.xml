@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">BooksDictionary</string>
+    <string name="app_name">Books Dictionary</string>
     <string name="exit">Exit</string>
-    <string name="not_started_books">Not Started Books</string>
+    <string name="books_list">Books List</string>
     <string name="author">Authors</string>
     <string name="name">Name</string>
     <string name="genre">Genre</string>

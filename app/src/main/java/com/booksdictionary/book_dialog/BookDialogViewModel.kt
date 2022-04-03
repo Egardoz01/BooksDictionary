@@ -47,4 +47,31 @@ class BookDialogViewModel (
         super.onCleared()
         viewModelJob.cancel()
     }
+
+    fun validateBookInfo(bookInfo: BookInfo): Boolean {
+        if (bookInfo.author.isEmpty())
+            return false
+
+        if (bookInfo.name.isEmpty())
+            return false
+
+        if (bookInfo.genre.isEmpty())
+            return false
+
+        if (bookInfo.status > 2 || bookInfo.status < 0)
+            return false
+
+        if (bookInfo.pagesRead < 0)
+            return false
+
+        if (bookInfo.pagesTotal < 0)
+            return false
+
+        if (bookInfo.pagesTotal < bookInfo.pagesRead)
+            return false
+
+        return true
+    }
+
+
 }

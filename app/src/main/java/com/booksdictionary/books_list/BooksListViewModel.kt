@@ -1,13 +1,12 @@
-package com.booksdictionary.notstartedbooks
+package com.booksdictionary.books_list
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.booksdictionary.database.BookDatabaseDao
 import com.booksdictionary.database.BookInfo
 import kotlinx.coroutines.*
 
-class NotStartedBooksViewModel(
+class BooksListViewModel(
     val dao: BookDatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {
@@ -37,12 +36,10 @@ class NotStartedBooksViewModel(
         }
     }
 
-
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
-
 
     private fun filterBooks(status: Int, author: String): LiveData<List<BookInfo>> {
         if (status in 0..2 && author.trim() == "") {
@@ -57,8 +54,8 @@ class NotStartedBooksViewModel(
     }
 
     class FilterData {
-        public var author: String = ""
-        public var status: Int = 3
+        var author: String = ""
+        var status: Int = 3
 
     }
 }

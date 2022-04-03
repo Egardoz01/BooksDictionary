@@ -1,19 +1,13 @@
-package com.booksdictionary.notstartedbooks
+package com.booksdictionary.books_list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.booksdictionary.R
-import com.booksdictionary.database.BookInfo
 
 class BookItemViewHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {

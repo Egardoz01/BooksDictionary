@@ -31,7 +31,7 @@ class MenuFragment : Fragment() {
 
 
         binding.btnNotStartedBooks.setOnClickListener {
-            this.findNavController().navigate(R.id.action_menuFragment_to_notStartedBooksFragment)
+            this.findNavController().navigate(R.id.action_menuFragment_to_BooksListFragment)
         }
 
         binding.btnExit.setOnClickListener {

@@ -1,4 +1,4 @@
-package com.booksdictionary.notstartedbooks
+package com.booksdictionary.books_list
 
 import android.content.Context
 import android.net.Uri

@@ -11,12 +11,12 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
-            android:id="@+id/action_menuFragment_to_notStartedBooksFragment"
+            android:id="@+id/action_menuFragment_to_BooksListFragment"
             app:destination="@id/notStartedBooksFragment" />
     </fragment>
     <fragment
         android:id="@+id/notStartedBooksFragment"
-        android:name="com.booksdictionary.notstartedbooks.NotStartedBooksFragment"
+        android:name="com.booksdictionary.books_list.NotStartedBooksFragment"
         android:label="not_started_books_fragment"
         tools:layout="@layout/not_started_books_fragment" >
         <action
