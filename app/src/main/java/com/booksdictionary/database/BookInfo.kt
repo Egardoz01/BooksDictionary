@@ -34,6 +34,9 @@ class BookInfo() : Parcelable {
     @ColumnInfo(name = "status")
     var status: Int = 0
 
+    @ColumnInfo(name = "image_uri")
+    var imageURI: String = ""
+
     constructor(parcel: Parcel) : this() {
         bookId = parcel.readLong()
         name = parcel.readString().toString()
@@ -42,6 +45,7 @@ class BookInfo() : Parcelable {
         pagesTotal = parcel.readInt()
         pagesRead = parcel.readInt()
         status = parcel.readInt()
+        imageURI = parcel.readString().toString()
     }
 
     companion object : Parceler<BookInfo> {
@@ -54,6 +58,7 @@ class BookInfo() : Parcelable {
             parcel.writeInt(pagesTotal)
             parcel.writeInt(pagesRead)
             parcel.writeInt(status)
+            parcel.writeString(imageURI)
         }
 
         override fun create(parcel: Parcel): BookInfo {

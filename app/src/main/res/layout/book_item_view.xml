@@ -99,5 +99,15 @@
         app:layout_constraintStart_toEndOf="@+id/book_pages"
         app:layout_constraintTop_toTopOf="@+id/book_pages" />
 
+    <ImageView
+        android:id="@+id/book_image"
+        android:layout_width="75dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/book_name"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

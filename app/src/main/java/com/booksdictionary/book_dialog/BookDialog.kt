@@ -1,8 +1,16 @@
 package com.booksdictionary.book_dialog
 
+import android.R.attr.data
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +28,11 @@ import com.booksdictionary.database.BookDatabase
 import com.booksdictionary.database.BookInfo
 import com.booksdictionary.database.StatusEnum
 import com.booksdictionary.databinding.BookDialogFragmentBinding
-import java.lang.Exception
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
+import java.util.*
 
 
 class BookDialog : DialogFragment() {
@@ -32,6 +44,10 @@ class BookDialog : DialogFragment() {
     private val authors: MutableList<EditText> = mutableListOf()
 
     private lateinit var binding: BookDialogFragmentBinding
+
+    private var imageUri: Uri? = null
+
+    val REQUEST_CODE = 100
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,6 +110,8 @@ class BookDialog : DialogFragment() {
             binding.editGenre.setText(args.bookInfo!!.genre ?: "")
             binding.editPagesTotal.setText(args.bookInfo!!.pagesTotal.toString() ?: "")
             binding.editPagesRead.setText(args.bookInfo!!.pagesRead.toString() ?: "")
+            imageUri = Uri.parse(args.bookInfo!!.imageURI)
+            binding.imageView.setImageURI(imageUri)
 
             args.bookInfo?.let { binding.spinnerStatus.setSelection(it.status) }
             binding.okButton.text = resources.getString(R.string.edit)
@@ -114,9 +132,16 @@ class BookDialog : DialogFragment() {
                 }
             }
 
-            binding.buttonCancel.setOnClickListener {
-                dismiss()
-            }
+
+        }
+
+        binding.buttonUploadImage.setOnClickListener {
+
+            startGallery()
+        }
+
+        binding.buttonCancel.setOnClickListener {
+            dismiss()
         }
 
         binding.buttonAddAuthor.setOnClickListener {
@@ -136,6 +161,7 @@ class BookDialog : DialogFragment() {
         bookInfo.pagesTotal = binding.editPagesTotal.text.toString().toInt()
         bookInfo.pagesRead = binding.editPagesRead.text.toString().toInt()
         bookInfo.status = binding.spinnerStatus.selectedItemPosition
+        bookInfo.imageURI = imageUri.toString()
 
         return bookInfo
     }
@@ -225,6 +251,51 @@ class BookDialog : DialogFragment() {
         binding.editGenre.requestLayout()
 
         authors.add(edit)
+    }
+
+    private fun startGallery() {
+        val gallery =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(gallery, 100)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == 100) {
+            var uri = data?.data
+            imageUri = uri?.let { saveImageToInternalStorage(it) }
+            binding.imageView.setImageURI(imageUri)
+        }
+    }
+
+    private fun saveImageToInternalStorage(imageUri: Uri): Uri {
+
+        val bitmap =
+            MediaStore.Images.Media.getBitmap(activity?.contentResolver, imageUri)
+
+
+        val wrapper = ContextWrapper(this.requireContext())
+
+
+        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+
+
+
+        file = File(file, "${UUID.randomUUID()}.jpg")
+
+        try {
+            val stream: OutputStream = FileOutputStream(file)
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+            stream.flush()
+
+            stream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return Uri.parse(file.absolutePath)
     }
 
 }

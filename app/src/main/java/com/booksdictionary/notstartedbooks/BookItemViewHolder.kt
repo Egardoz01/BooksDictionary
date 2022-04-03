@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,6 +24,7 @@ class BookItemViewHolder(itemView: View) :
     val bookPages: TextView = itemView.findViewById(R.id.book_pages)
     val bookPersentage: TextView = itemView.findViewById(R.id.book_persetage)
     val bookStatus: TextView = itemView.findViewById(R.id.book_status)
+    val bookImage: ImageView = itemView.findViewById(R.id.book_image)
 
     val addButton: Button = itemView.findViewById(R.id.edit_button)
     val deleteButton: Button = itemView.findViewById(R.id.delete_button)

@@ -1,6 +1,7 @@
 package com.booksdictionary.notstartedbooks
 
 import android.content.Context
+import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.booksdictionary.R
@@ -32,6 +33,10 @@ class BooksAdapter : RecyclerView.Adapter<BookItemViewHolder>() {
             holder.bookPersentage.text = (item.pagesRead * 100 / item.pagesTotal).toString() + "%";
         else
             holder.bookPersentage.text = "0%"
+
+        if (item.imageURI != "") {
+            holder.bookImage.setImageURI(Uri.parse((item.imageURI)))
+        }
 
         holder.addButton.setOnClickListener {
             onEditBookClick(item)
