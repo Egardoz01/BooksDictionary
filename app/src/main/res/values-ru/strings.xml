@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Дневник прочтения книг</string>
+    <string name="exit">Выход</string>
+    <string name="author">Авторы</string>
+    <string name="name">Название</string>
+    <string name="genre">Жанр</string>
+    <string name="add">Добавить</string>
+    <string name="edit">Редактировать</string>
+    <string name="pagesTotal">Всего страниц</string>
+    <string name="pagesRead">Прочитано</string>
+    <string name="status">Статус</string>
+    <string name="inProgress">Читаю</string>
+    <string name="notStarted">Буду читать</string>
+    <string name="finished">Прочитано</string>
+    <string name="pagesFormat">прочитано %d из %d</string>
+    <string name="booksDictionary">Дневник прочтения книг</string>
+    <string name="enterAuthor">Введите Автора</string>
+    <string name="cancel">Отмена</string>
+    <string name="selectStatus">Выберите Статус</string>
+    <string name="addBook">Добавить</string>
+    <string name="loadImage">Загрузить Изображение</string>
+    <string name="filter">Фильтр</string>
+</resources>

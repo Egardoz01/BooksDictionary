@@ -38,8 +38,6 @@ class MenuFragment : Fragment() {
             activity?.let { it1 -> finishAffinity(it1) }
         }
 
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.booksDictionary)
-
         return binding.root
 
     }

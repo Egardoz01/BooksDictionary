@@ -243,6 +243,8 @@ class BookDialog : DialogFragment() {
     }
 
     private fun initializeComponents() {
+        authors.add(binding.editAuthor)
+
         if (args.bookInfo == null) {
             initializeAddBook()
         } else {
@@ -267,7 +269,7 @@ class BookDialog : DialogFragment() {
             StatusEnum.values().map { it.getLabel(this.requireContext()) }
         )
 
-        authors.add(binding.editAuthor)
+
     }
 
 }

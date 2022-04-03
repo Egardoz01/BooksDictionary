@@ -8,17 +8,17 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.booksdictionary.menu.MenuFragment"
-        android:label="fragment_menu"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_menu" >
         <action
             android:id="@+id/action_menuFragment_to_BooksListFragment"
-            app:destination="@id/notStartedBooksFragment" />
+            app:destination="@id/BooksListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/notStartedBooksFragment"
-        android:name="com.booksdictionary.books_list.NotStartedBooksFragment"
-        android:label="not_started_books_fragment"
-        tools:layout="@layout/not_started_books_fragment" >
+        android:id="@+id/BooksListFragment"
+        android:name="com.booksdictionary.books_list.BooksListFragment"
+        android:label="@string/booksDictionary"
+        tools:layout="@layout/books_list_fragment" >
         <action
             android:id="@+id/action_editBook"
             app:destination="@id/bookDialog">
@@ -33,7 +33,7 @@
     <dialog
         android:id="@+id/bookDialog"
         android:name="com.booksdictionary.book_dialog.BookDialog"
-        android:label="BookDialog" >
+        android:label="" >
         <argument
             android:name="bookInfo"
             app:argType="com.booksdictionary.database.BookInfo"

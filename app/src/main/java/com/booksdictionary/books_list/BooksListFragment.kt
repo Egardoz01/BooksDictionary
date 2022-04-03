@@ -17,23 +17,24 @@ import com.booksdictionary.MainActivity
 import com.booksdictionary.R
 import com.booksdictionary.database.BookDatabase
 import com.booksdictionary.database.StatusEnumSelect
-import com.booksdictionary.databinding.NotStartedBooksFragmentBinding
+import com.booksdictionary.databinding.BooksListFragmentBinding
 
-class NotStartedBooksFragment : Fragment() {
+class BooksListFragment : Fragment() {
 
     companion object {
-        fun newInstance() = NotStartedBooksFragment()
+        fun newInstance() = BooksListFragment()
     }
 
     private lateinit var viewModel: BooksListViewModel
-    private lateinit var binding: NotStartedBooksFragmentBinding
+    private lateinit var binding: BooksListFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.not_started_books_fragment, container, false
+            inflater, R.layout.books_list_fragment, container, false
         )
         initializeViewModel()
         initializeComponents()
@@ -44,8 +45,6 @@ class NotStartedBooksFragment : Fragment() {
 
 
     private fun initializeComponents() {
-
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.booksDictionary)
 
         binding.addBookButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_editBook)
@@ -89,7 +88,7 @@ class NotStartedBooksFragment : Fragment() {
         adapter.context = this.requireContext()
 
         adapter.onEditBookClick = {
-            val action = NotStartedBooksFragmentDirections.actionEditBook()
+            val action = BooksListFragmentDirections.actionEditBook()
             action.bookInfo = it
             this.findNavController().navigate(action)
         }
